@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::get('articles',function(){
 Route::get('/articles/detail', function () {
 return 'Article Detail';
 });
+
+Route::resource('dashboards', '\App\Http\Controllers\DashboardController');
