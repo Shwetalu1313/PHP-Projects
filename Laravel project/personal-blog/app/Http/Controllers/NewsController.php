@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\News;
+use Exception;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -31,12 +32,13 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request ->validate([
-            "title" => 'require',
-            "content" => 'require',
+        $data = $request->validate([
+            "title" => 'required',
+            "content" => 'required',
             "image" => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            "image" => 'require'
+            "category_id" => 'required',
         ]);
+        
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images');
@@ -47,8 +49,13 @@ class NewsController extends Controller
         $news->title = $data['title'];
         $news->content = $data['content'];
         $news->image = $data['image'];
-        $news->category_id = $data['image'];
-        $news->save();
+        $news->category_id = $data['category_id'];
+        try {
+            $news->save();
+        } catch (Exception $th) {
+            dd('Message: ' .$th->getMessage());
+        }
+        
 
         return redirect('admin/news')->with('successCreate','A new Content was succefully created.');
     }

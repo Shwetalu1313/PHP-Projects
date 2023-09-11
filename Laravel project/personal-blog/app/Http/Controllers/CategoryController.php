@@ -12,6 +12,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        
         $categories = Category::paginate(5);
         // return view('admin.category');
         return view('admin.category',compact('categories'))->with('success', 'Category added successfully.');
