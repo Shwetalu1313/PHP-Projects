@@ -1,0 +1,38 @@
+/* Style for messages sent by the user (me) */
+.message.other {
+    background-color: #007BFF;
+    color: #FFFFFF;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    align-self: flex-end;
+}
+
+
+/* Style for messages received from others */
+.message.me {
+    background-color: #E9ECEF;
+    color: #000000;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    align-self: flex-start;
+}
+
+main .card-body{
+    height: 30rem;
+    overflow-y: scroll !important ;
+    scrollbar-width: none;
+}
+
+main .card-body::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar for Chrome, Safari, and newer Edge */
+}
+
+@media only screen and (max-width: 600px) {
+    main .card-body {
+        max-height: 25rem;
+    }
+}
+
+
