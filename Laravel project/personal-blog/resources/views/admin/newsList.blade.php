@@ -5,7 +5,7 @@
         <h2>News Display</h2>
             @if (Session('successCreate'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong><i class="bi bi-check-circle-fill"></i> {{Session('success')}}</strong>
+                    <strong><i class="bi bi-check-circle-fill"></i> {{Session('successCreate')}}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -41,7 +41,14 @@
                       <td>{{$new->id}}</td>
                       <td>{{$new->title}}</td>
                       <td>{{$new->content}}</td>
-                      <td>{{$new->image}}</td>
+                      <td class="text-center">
+                        @if ($new->image)
+                        <img src="{{ asset('storage/images//' . preg_replace('/^public\/images\//', '', $new->image)) }}" style="height: 100px; width: 100px; object-fit:cover;">
+
+                        @else
+                           <span>No image found</span> 
+                        @endif
+                      </td>
                       <td class="text-center">
                          <form action="{{url('admin/new/'.$new->id)}}" method="POST">
                             @method('DELETE')

@@ -14,7 +14,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::paginate(5);
+        $news = News::paginate(3);
         return view('admin.newsList',compact('news'));
     }
 
@@ -35,13 +35,14 @@ class NewsController extends Controller
         $data = $request->validate([
             "title" => 'required',
             "content" => 'required',
-            "image" => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            "image" => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             "category_id" => 'required',
-        ]);
-        
+        ]);        
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images');
+            $image = $request->file('image');
+            $imageName = $image->hashName();
+            $imagePath = $image->storeAs('public/images',$imageName);
             $data['image'] = $imagePath;
         }
 
@@ -53,7 +54,7 @@ class NewsController extends Controller
         try {
             $news->save();
         } catch (Exception $th) {
-            dd('Message: ' .$th->getMessage());
+            return dd('Message: ' .$th->getMessage());
         }
         
 
